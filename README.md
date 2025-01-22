@@ -93,7 +93,8 @@ A2: はい、□□の影響を受けます。
 
 | プログラム | デザイン | サウンド                                          | 
 | :--------: | :------: | :-----------------------------------------------: | 
-|            |          | https://tsugi-studio.com/web/jp/blog/blog163.html | 
+|            |          | [Tsugi](https://tsugi-studio.com/web/jp/blog/blog163.html) | 
+|            |          | [音人(On-Jin)](https://on-jin.com/) | 
 
 ---
 
