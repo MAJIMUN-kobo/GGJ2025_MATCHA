@@ -91,9 +91,9 @@ A2: はい、□□の影響を受けます。
 
 ## クレジット
 
-| プログラム | デザイン | サウンド                                          | 
+| プログラム | デザイン | サウンド                                          |
 | :--------: | :------: | :-----------------------------------------------: | 
-|            |          | [Tsugi](https://tsugi-studio.com/web/jp/blog/blog163.html) | 
+|            |フォント<br>[玉ねぎ楷書「激」無料版](https://booth.pm/ja/items/2929647)| [Tsugi](https://tsugi-studio.com/web/jp/blog/blog163.html) | 
 |            |          | [音人(On-Jin)](https://on-jin.com/) | 
 
 ---
