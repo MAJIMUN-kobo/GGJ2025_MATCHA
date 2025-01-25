@@ -39,7 +39,7 @@ public class UIText_Score : MonoBehaviour
         
     }
 
-    public void showScore(JudgeManager.SCORE score) {
+    public void ShowScore(JudgeManager.SCORE score) {
         uiText.text = score.ToString();
     }
 }

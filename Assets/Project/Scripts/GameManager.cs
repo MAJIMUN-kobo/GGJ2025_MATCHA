@@ -25,21 +25,21 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // for debug text : mouse position
-        Vector2 position = this.deviceManager.getMousePositionNormalized();
-        this.uIManager.GetComponent<UIText_MousePosition>().showPosition(position);
-        this.judgeManager.setMousePosition(position);
+        Vector2 position = this.deviceManager.GetMousePositionNormalized();
+        this.uIManager.GetComponent<UIText_MousePosition>().ShowPosition(position);
+        this.judgeManager.SetMousePosition(position);
 
         
         // for degug text : judgement
-        JudgeManager.SCORE score = this.judgeManager.getScore();
-        this.uIManager.GetComponent<UIText_Score>().showScore(score);
+        JudgeManager.SCORE score = this.judgeManager.GetScore();
+        this.uIManager.GetComponent<UIText_Score>().ShowScore(score);
         //Debug.Log("Score:" + score.ToString());
 
         // for debug text : timer
-        int remainingTime = this.timeManager.getRemainingTime();
-        this.uIManager.GetComponent<UIText_Timer>().showTimer(remainingTime);
+        int remainingTime = this.timeManager.GetRemainingTime();
+        this.uIManager.GetComponent<UIText_Timer>().ShowTimer(remainingTime);
         if (remainingTime <= 0) {
-            Debug.Log("Final Score: " + this.judgeManager.getFinalScore().ToString());
+            Debug.Log("Final Score: " + this.judgeManager.GetFinalScore().ToString());
             this.judgeManager.Reset();
             this.timeManager.Reset();
         }

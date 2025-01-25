@@ -31,7 +31,7 @@ public class UIText_MousePosition : MonoBehaviour
         
     }
 
-    public void showPosition(Vector2 position) {
+    public void ShowPosition(Vector2 position) {
         uiText.text = position.ToString();
     }
 }

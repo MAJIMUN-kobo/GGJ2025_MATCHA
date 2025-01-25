@@ -38,7 +38,7 @@ public class UIText_Timer : MonoBehaviour
         
     }
 
-    public void showTimer(int time) {
+    public void ShowTimer(int time) {
         uiText.text = time.ToString();
     }
 }
