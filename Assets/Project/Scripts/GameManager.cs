@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private DeviceManager deviceManager;
 
     private JudgeManager judgeManager;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +21,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // for debug text : mouse position
         Vector2 position = this.deviceManager.getMousePositionNormalized();
-        this.uIManager.GetComponent<UIMousePosition>().showPosition(position);
+        this.uIManager.GetComponent<UIText_MousePosition>().showPosition(position);
         this.judgeManager.setMousePosition(position);
+
+        
+        // for degug text : judgement
+        JudgeManager.SCORE score = this.judgeManager.getScore();
+        this.uIManager.GetComponent<UIText_Score>().showScore(score);
+        //Debug.Log("Score:" + score.ToString());
     }
 }
