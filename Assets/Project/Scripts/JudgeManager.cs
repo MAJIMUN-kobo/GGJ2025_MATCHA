@@ -12,6 +12,7 @@ public class JudgeManager : MonoBehaviour
         NOT_GOOD,
         GOOD,
         GRATE,
+        AMAZING,
     }
     private List<SCORE> scores = new List<SCORE>();
 
@@ -25,7 +26,7 @@ public class JudgeManager : MonoBehaviour
     private List<Vector2> mousePositions;
     private int JUDGE_MOUSE_LIST_SIZE = 30;
     private int JUDGE_MOUSE_MULTIPLIER = 1000;
-    private int JUDGE_MOUSE_THRESHOLD = 10;
+    private int JUDGE_MOUSE_THRESHOLD = 50;
     // -----------------------------------------
 
 
@@ -43,6 +44,9 @@ public class JudgeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void Scoring() {
         // add a judged score every certain time
         float elapsedTime = Time.time - this.judgeStartTime;
         if (elapsedTime >= JUDGE_PERIOD) {
@@ -73,9 +77,12 @@ public class JudgeManager : MonoBehaviour
 
             // Judge!
             if (variance.x > JUDGE_MOUSE_THRESHOLD && variance.y > JUDGE_MOUSE_THRESHOLD) {
-                return SCORE.GRATE;
+                return SCORE.AMAZING;
             }
             else if (variance.x > JUDGE_MOUSE_THRESHOLD || variance.y > JUDGE_MOUSE_THRESHOLD) {
+                return SCORE.GRATE;
+            }
+            else if (variance.x > JUDGE_MOUSE_THRESHOLD*0.5 || variance.y > JUDGE_MOUSE_THRESHOLD*0.5) {
                 return SCORE.GOOD;
             }
             else {
