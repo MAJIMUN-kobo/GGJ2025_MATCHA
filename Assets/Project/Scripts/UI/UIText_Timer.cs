@@ -22,7 +22,7 @@ public class UIText_Timer : MonoBehaviour
             rectTransform.sizeDelta = new Vector2(500, 200); // テキスト領域の幅と高さを設定
 
             // テキストの内容とスタイルを設定
-            this.uiText.text = "Hello, World!";
+            this.uiText.text = "";
             this.uiText.fontSize = 64; // フォントサイズを64に設定
             this.uiText.alignment = TextAlignmentOptions.Top;
         }
