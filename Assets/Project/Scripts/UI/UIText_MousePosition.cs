@@ -1,21 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
-public class UIMousePosition : MonoBehaviour
+public class UIText_MousePosition : MonoBehaviour
 {
     public TMP_Text uiText;
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(0, 2, 0);
-
-        // オブジェクトを X軸方向に90度回転
-        transform.rotation = Quaternion.Euler(90, 0, 0);
-
         // UIのテキストを左端に配置
         if (uiText != null)
         {
