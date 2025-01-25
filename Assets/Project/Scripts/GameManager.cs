@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private JudgeManager judgeManager;
 
     private TimeManager timeManager;
+
+    private EffectManager effectManager;
     
 
     // Start is called before the first frame update
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
         this.deviceManager = this.GetComponent<DeviceManager>();
         this.judgeManager = this.GetComponent<JudgeManager>();            
         this.timeManager = this.GetComponent<TimeManager>();            
+        this.effectManager = this.GetComponent<EffectManager>();            
     }
 
     // Update is called once per frame
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
     private void Init() {
         this.judgeManager.Reset();
         this.timeManager.Reset();
+        this.effectManager.PlaySakuraEffect();
         this.state = GAME_STATE.PLAYING;
     }
 
@@ -58,9 +62,9 @@ public class GameManager : MonoBehaviour
         this.judgeManager.SetMousePosition(position);
 
         
-        // for degug text : judgement
         this.judgeManager.Scoring();
         JudgeManager.SCORE score = this.judgeManager.GetScore();
+        this.effectManager.UpdateSakuraEffect(score);
         this.uIManager.GetComponent<UIText_Score>().ShowScore(score);
         //Debug.Log("Score:" + score.ToString());
 
@@ -73,6 +77,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void End() {
+        this.effectManager.StopSakuraEffect();
         Debug.Log("Final Score: " + this.judgeManager.GetFinalScore().ToString());
     }
 }
