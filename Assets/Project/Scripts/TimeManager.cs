@@ -8,7 +8,7 @@ public class TimeManager : MonoBehaviour
     private float startTime = 0;
     private float elapsedTime = 0;
 
-    private float GAME_PERIOD = 30;
+    private float GAME_PERIOD = 5;
 
     // Start is called before the first frame update
     void Start()
