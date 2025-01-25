@@ -38,5 +38,10 @@ public class GameManager : MonoBehaviour
         // for debug text : timer
         int remainingTime = this.timeManager.getRemainingTime();
         this.uIManager.GetComponent<UIText_Timer>().showTimer(remainingTime);
+        if (remainingTime <= 0) {
+            Debug.Log("Final Score: " + this.judgeManager.getFinalScore().ToString());
+            this.judgeManager.Reset();
+            this.timeManager.Reset();
+        }
     }
 }

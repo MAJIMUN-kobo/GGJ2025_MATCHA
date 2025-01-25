@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using System.Linq;
 
 public class JudgeManager : MonoBehaviour
 {
@@ -12,13 +13,12 @@ public class JudgeManager : MonoBehaviour
         GOOD = 2,
         GRATE = 3,
     }
-    private SCORE score = 0;
+    private List<SCORE> scores = new List<SCORE>();
 
-
-    private int LIST_SIZE = 10;
+    private int LIST_SIZE = 30;
     private int MULTIPLIER = 1000;
 
-    private int JUDGEMENT_THRESHOLD = 3;
+    private int JUDGEMENT_THRESHOLD = 10;
 
     private List<Vector2> mousePositions;
 
@@ -38,7 +38,7 @@ public class JudgeManager : MonoBehaviour
     {
         float elapsedTime = Time.time - this.judgeStartTime;
         if (elapsedTime >= JUDGEMENT_PERIOD) {
-            this.score = this.Judge();
+            this.scores.Add(this.Judge());
             this.judgeStartTime = Time.time;
         }
 
@@ -61,7 +61,7 @@ public class JudgeManager : MonoBehaviour
     private SCORE Judge () {
         if (this.mousePositions.Count >= LIST_SIZE) {
             Vector2 variance = this.CalculateVariance(this.mousePositions);
-            // Debug.Log($"Variance: X: {variance.x}, Y: {variance.y}");
+            //Debug.Log($"Variance: X: {variance.x}, Y: {variance.y}");
 
             // Judge!
             if (variance.x > JUDGEMENT_THRESHOLD && variance.y > JUDGEMENT_THRESHOLD) {
@@ -110,6 +110,29 @@ public class JudgeManager : MonoBehaviour
     }
 
     public SCORE getScore() {
-        return this.score;
+        if (this.scores.Count > 0) {
+            return this.scores[this.scores.Count - 1];
+        }
+        return SCORE.READY;
+    }
+
+    public SCORE getFinalScore () {
+        if (this.scores == null || this.scores.Count == 0)
+        {
+            Debug.LogError("The enum list is empty or null.");
+            return default; // デフォルト値を返す（MyEnum.ValueA）
+        }
+
+        // 出現回数をカウントして最頻値を取得
+        var frequency = this.scores
+            .GroupBy(x => x)                      // 各要素をグループ化
+            .OrderByDescending(g => g.Count())    // 出現回数で降順に並べる
+            .FirstOrDefault();                    // 最頻値のグループを取得
+
+        return frequency.Key; // 最頻値を返す
+    }
+
+    public void Reset() {
+        this.scores.Clear();
     }
 }
