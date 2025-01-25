@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     private DeviceManager deviceManager;
 
     private JudgeManager judgeManager;
+
+    private TimeManager timeManager;
     
 
     // Start is called before the first frame update
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour
     {
         this.deviceManager = this.GetComponent<DeviceManager>();
         this.judgeManager = this.GetComponent<JudgeManager>();            
+        this.timeManager = this.GetComponent<TimeManager>();            
     }
 
     // Update is called once per frame
@@ -31,5 +34,9 @@ public class GameManager : MonoBehaviour
         JudgeManager.SCORE score = this.judgeManager.getScore();
         this.uIManager.GetComponent<UIText_Score>().showScore(score);
         //Debug.Log("Score:" + score.ToString());
+
+        // for debug text : timer
+        int remainingTime = this.timeManager.getRemainingTime();
+        this.uIManager.GetComponent<UIText_Timer>().showTimer(remainingTime);
     }
 }
