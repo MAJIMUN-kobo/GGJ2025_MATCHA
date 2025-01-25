@@ -9,9 +9,9 @@ public class JudgeManager : MonoBehaviour
 {
     public enum SCORE {
         READY = 0,
-        NOT_GOOD = 1,
-        GOOD = 2,
-        GRATE = 3,
+        NOT_GOOD,
+        GOOD,
+        GRATE,
     }
     private List<SCORE> scores = new List<SCORE>();
 
