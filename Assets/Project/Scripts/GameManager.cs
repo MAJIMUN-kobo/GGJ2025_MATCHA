@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
 
         
         // for degug text : judgement
+        this.judgeManager.Scoring();
         JudgeManager.SCORE score = this.judgeManager.GetScore();
         this.uIManager.GetComponent<UIText_Score>().ShowScore(score);
         //Debug.Log("Score:" + score.ToString());
