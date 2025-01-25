@@ -15,16 +15,23 @@ public class JudgeManager : MonoBehaviour
     }
     private List<SCORE> scores = new List<SCORE>();
 
-    private int LIST_SIZE = 30;
-    private int MULTIPLIER = 1000;
-
-    private int JUDGEMENT_THRESHOLD = 10;
-
-    private List<Vector2> mousePositions;
-
-    private float JUDGEMENT_PERIOD = 1;
+    // for Judge Timing ----------------
+    private float JUDGE_PERIOD = 1;
     private float judgeStartTime;
+    // ---------------------------------
 
+
+    // for Mouse Judge -------------------------
+    private List<Vector2> mousePositions;
+    private int JUDGE_MOUSE_LIST_SIZE = 30;
+    private int JUDGE_MOUSE_MULTIPLIER = 1000;
+    private int JUDGE_MOUSE_THRESHOLD = 10;
+    // -----------------------------------------
+
+
+    // for Chasen Judge ------------------------
+
+    //------------------------------------------
 
     // Start is called before the first frame update
     void Start()
@@ -36,45 +43,45 @@ public class JudgeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // add a judged score every certain time
         float elapsedTime = Time.time - this.judgeStartTime;
-        if (elapsedTime >= JUDGEMENT_PERIOD) {
+        if (elapsedTime >= JUDGE_PERIOD) {
             this.scores.Add(this.Judge());
             this.judgeStartTime = Time.time;
         }
-
-        /*
-        Debug.Log("Positions: -------------");
-        foreach (Vector2 pos in this.mousePositions)
-        {
-            Debug.Log($"Vector2: {pos}");
-        }
-        */
     }
 
-    public void setMousePosition (Vector2 position) {
-        if (this.mousePositions.Count >= LIST_SIZE) {
+    public void SetMousePosition (Vector2 position) {
+        if (this.mousePositions.Count >= JUDGE_MOUSE_LIST_SIZE) {
             this.mousePositions.RemoveAt(0);
         }
         this.mousePositions.Add(position);
     }
 
     private SCORE Judge () {
-        if (this.mousePositions.Count >= LIST_SIZE) {
+        SCORE mouseScore = this.JudgeMouse();
+        SCORE chasenScore = this.JudgeChasen();
+
+        // a judged score is a larger one 
+        return (mouseScore > chasenScore) ? mouseScore : chasenScore;
+    }
+
+    private SCORE JudgeMouse() {
+        if (this.mousePositions.Count >= JUDGE_MOUSE_LIST_SIZE) {
             Vector2 variance = this.CalculateVariance(this.mousePositions);
             //Debug.Log($"Variance: X: {variance.x}, Y: {variance.y}");
 
             // Judge!
-            if (variance.x > JUDGEMENT_THRESHOLD && variance.y > JUDGEMENT_THRESHOLD) {
+            if (variance.x > JUDGE_MOUSE_THRESHOLD && variance.y > JUDGE_MOUSE_THRESHOLD) {
                 return SCORE.GRATE;
             }
-            else if (variance.x > JUDGEMENT_THRESHOLD || variance.y > JUDGEMENT_THRESHOLD) {
+            else if (variance.x > JUDGE_MOUSE_THRESHOLD || variance.y > JUDGE_MOUSE_THRESHOLD) {
                 return SCORE.GOOD;
             }
             else {
                 return SCORE.NOT_GOOD;
             }
         }
-
         return SCORE.READY; // Not Judge Yet.
     }
 
@@ -103,20 +110,25 @@ public class JudgeManager : MonoBehaviour
         }
 
         // 分散を計算
-        int x = Mathf.RoundToInt(sumOfSquares.x / data.Count * this.MULTIPLIER);
-        int y = Mathf.RoundToInt(sumOfSquares.y / data.Count * this.MULTIPLIER);
+        int x = Mathf.RoundToInt(sumOfSquares.x / data.Count * this.JUDGE_MOUSE_MULTIPLIER);
+        int y = Mathf.RoundToInt(sumOfSquares.y / data.Count * this.JUDGE_MOUSE_MULTIPLIER);
 
         return new Vector2(x, y);
     }
 
-    public SCORE getScore() {
+    private SCORE JudgeChasen() {
+        return SCORE.READY;
+    }
+
+
+    public SCORE GetScore() {
         if (this.scores.Count > 0) {
             return this.scores[this.scores.Count - 1];
         }
         return SCORE.READY;
     }
 
-    public SCORE getFinalScore () {
+    public SCORE GetFinalScore () {
         if (this.scores == null || this.scores.Count == 0)
         {
             Debug.LogError("The enum list is empty or null.");

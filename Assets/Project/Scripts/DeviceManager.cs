@@ -15,6 +15,10 @@ public class DeviceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        this.UpdateMouse();
+    }
+
+    private void UpdateMouse(){
         Vector3 mousePosition = Input.mousePosition;
 
         float screenWidth = Screen.width;
@@ -23,7 +27,7 @@ public class DeviceManager : MonoBehaviour
         this.normalizedMousePosition = new Vector2(mousePosition.x / screenWidth, mousePosition.y / screenHeight);
     }
 
-    public Vector2 getMousePositionNormalized() {
+    public Vector2 GetMousePositionNormalized() {
         return this.normalizedMousePosition;
     }
 }
