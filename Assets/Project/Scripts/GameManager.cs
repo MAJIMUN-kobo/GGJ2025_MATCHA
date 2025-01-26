@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     private EffectManager effectManager;
 
     private UIResultManager uIResultManager;
+
+    public SoundManager soundManager;
     
 
     // Start is called before the first frame update
@@ -32,7 +34,8 @@ public class GameManager : MonoBehaviour
         this.judgeManager = this.GetComponent<JudgeManager>();            
         this.timeManager = this.GetComponent<TimeManager>();            
         this.effectManager = this.GetComponent<EffectManager>();
-        this.uIResultManager = this.GetComponent<UIResultManager>();            
+        this.uIResultManager = this.GetComponent<UIResultManager>();
+        this.soundManager = this.GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -76,6 +79,7 @@ public class GameManager : MonoBehaviour
         int remainingTime = this.timeManager.GetRemainingTime();
         this.uIManager.GetComponent<UIText_Timer>().ShowTimer(remainingTime);
         if (remainingTime <= 0) {
+            this.soundManager.PlayCongratulations();
             this.state = GAME_STATE.END;
         }
     }
