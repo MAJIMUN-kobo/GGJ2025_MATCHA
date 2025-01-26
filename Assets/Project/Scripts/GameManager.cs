@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    
 
     private void End() {
         this.effectManager.ClearSakuraEffect();
