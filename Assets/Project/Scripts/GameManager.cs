@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     private TimeManager timeManager;
 
     private EffectManager effectManager;
+
+    private UIResultManager uIResultManager;
     
 
     // Start is called before the first frame update
@@ -29,7 +31,8 @@ public class GameManager : MonoBehaviour
         this.deviceManager = this.GetComponent<DeviceManager>();
         this.judgeManager = this.GetComponent<JudgeManager>();            
         this.timeManager = this.GetComponent<TimeManager>();            
-        this.effectManager = this.GetComponent<EffectManager>();            
+        this.effectManager = this.GetComponent<EffectManager>();
+        this.uIResultManager = this.GetComponent<UIResultManager>();            
     }
 
     // Update is called once per frame
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
         this.judgeManager.Reset();
         this.timeManager.Reset();
         this.effectManager.PlaySakuraEffect();
+        this.uIResultManager.HideResult();
         this.state = GAME_STATE.PLAYING;
     }
 
@@ -77,7 +81,13 @@ public class GameManager : MonoBehaviour
     }
 
     private void End() {
-        this.effectManager.StopSakuraEffect();
+        this.effectManager.ClearSakuraEffect();
+        JudgeManager.SCORE score = this.judgeManager.GetFinalScore();
+        this.uIResultManager.ShowResult(score);
         Debug.Log("Final Score: " + this.judgeManager.GetFinalScore().ToString());
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            this.state = GAME_STATE.INIT;
+        }
     }
 }

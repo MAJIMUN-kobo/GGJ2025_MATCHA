@@ -37,7 +37,8 @@ public class EffectManager : MonoBehaviour
         this.sakuraEffect.Play();
     }
 
-    public void StopSakuraEffect() {
+    public void ClearSakuraEffect() {
         this.sakuraEffect.Stop();        
+        this.sakuraEffect.Clear();        
     }
 }
