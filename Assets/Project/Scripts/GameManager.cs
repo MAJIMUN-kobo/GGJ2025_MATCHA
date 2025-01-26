@@ -64,9 +64,11 @@ public class GameManager : MonoBehaviour
 
     private void Playing() {
         // for debug text : mouse position
-        Vector2 position = this.deviceManager.GetMousePositionNormalized();
-        this.uIManager.GetComponent<UIText_MousePosition>().ShowPosition(position);
-        this.judgeManager.SetMousePosition(position);
+        Vector2 mousePosition = this.deviceManager.GetMousePositionNormalized();
+        Vector2 chasenPosition = this.deviceManager.GetChasenPositionNormalized();
+        this.uIManager.GetComponent<UIText_MousePosition>().ShowPosition(chasenPosition);
+        this.judgeManager.SetMousePosition(mousePosition);
+        this.judgeManager.SetChasenPosition(chasenPosition);
 
         
         this.judgeManager.Scoring();

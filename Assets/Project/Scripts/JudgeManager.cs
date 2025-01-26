@@ -31,6 +31,10 @@ public class JudgeManager : MonoBehaviour
 
 
     // for Chasen Judge ------------------------
+    private List<Vector2> chasenPositions;
+    private int JUDGE_CHASEN_LIST_SIZE = 30;
+    private int JUDGE_CHASEN_MULTIPLIER = 1000;
+    private int JUDGE_CHASEN_THRESHOLD = 50;
 
     //------------------------------------------
 
@@ -38,6 +42,7 @@ public class JudgeManager : MonoBehaviour
     void Start()
     {
         this.mousePositions = new List<Vector2>();
+        this.chasenPositions = new List<Vector2>();
         this.judgeStartTime = Time.time;
     }
 
@@ -62,6 +67,13 @@ public class JudgeManager : MonoBehaviour
         this.mousePositions.Add(position);
     }
 
+    public void SetChasenPosition (Vector2 position) {
+        if (this.chasenPositions.Count >= JUDGE_CHASEN_LIST_SIZE) {
+            this.chasenPositions.RemoveAt(0);
+        }
+        this.chasenPositions.Add(position);
+    }
+
     private SCORE Judge () {
         SCORE mouseScore = this.JudgeMouse();
         SCORE chasenScore = this.JudgeChasen();
@@ -83,6 +95,28 @@ public class JudgeManager : MonoBehaviour
                 return SCORE.GRATE;
             }
             else if (variance.x > JUDGE_MOUSE_THRESHOLD*0.5 || variance.y > JUDGE_MOUSE_THRESHOLD*0.5) {
+                return SCORE.GOOD;
+            }
+            else {
+                return SCORE.NOT_GOOD;
+            }
+        }
+        return SCORE.READY; // Not Judge Yet.
+    }
+
+    private SCORE JudgeChasen() {
+        if (this.chasenPositions.Count >= JUDGE_CHASEN_LIST_SIZE) {
+            Vector2 variance = this.CalculateVariance(this.chasenPositions);
+            Debug.Log($"Variance: X: {variance.x}, Y: {variance.y}");
+
+            // Judge!
+            if (variance.x > JUDGE_CHASEN_THRESHOLD && variance.y > JUDGE_CHASEN_THRESHOLD) {
+                return SCORE.AMAZING;
+            }
+            else if (variance.x > JUDGE_CHASEN_THRESHOLD || variance.y > JUDGE_CHASEN_THRESHOLD) {
+                return SCORE.GRATE;
+            }
+            else if (variance.x > JUDGE_CHASEN_THRESHOLD*0.5 || variance.y > JUDGE_CHASEN_THRESHOLD*0.5) {
                 return SCORE.GOOD;
             }
             else {
@@ -121,10 +155,6 @@ public class JudgeManager : MonoBehaviour
         int y = Mathf.RoundToInt(sumOfSquares.y / data.Count * this.JUDGE_MOUSE_MULTIPLIER);
 
         return new Vector2(x, y);
-    }
-
-    private SCORE JudgeChasen() {
-        return SCORE.READY;
     }
 
 
