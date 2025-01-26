@@ -64,9 +64,11 @@ public class GameManager : MonoBehaviour
 
     private void Playing() {
         // for debug text : mouse position
-        Vector2 position = this.deviceManager.GetMousePositionNormalized();
-        this.uIManager.GetComponent<UIText_MousePosition>().ShowPosition(position);
-        this.judgeManager.SetMousePosition(position);
+        Vector2 mousePosition = this.deviceManager.GetMousePositionNormalized();
+        Vector2 chasenPosition = this.deviceManager.GetChasenPositionNormalized();
+        this.uIManager.GetComponent<UIText_MousePosition>().ShowPosition(chasenPosition);
+        this.judgeManager.SetMousePosition(mousePosition);
+        this.judgeManager.SetChasenPosition(chasenPosition);
 
         
         this.judgeManager.Scoring();
@@ -89,7 +91,7 @@ public class GameManager : MonoBehaviour
         this.effectManager.ClearSakuraEffect();
         JudgeManager.SCORE score = this.judgeManager.GetFinalScore();
         this.uIResultManager.ShowResult(score);
-        Debug.Log("Final Score: " + this.judgeManager.GetFinalScore().ToString());
+        //Debug.Log("Final Score: " + this.judgeManager.GetFinalScore().ToString());
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             this.state = GAME_STATE.INIT;
