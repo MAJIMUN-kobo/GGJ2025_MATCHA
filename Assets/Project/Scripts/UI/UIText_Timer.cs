@@ -106,7 +106,7 @@ public class UIText_Timer : MonoBehaviour
             for(int i = 0; i < TimeDigits; i++)
             {
                 int digit = int.Parse(numberStr[i].ToString());
-                uiDigits[i].sprite = numbers[digit+1];
+                uiDigits[i].sprite = numbers[digit];
             }
         }
         catch(System.Exception e)
