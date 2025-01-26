@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.iOS;
 
 public class GameManager : MonoBehaviour
 {
-    enum GAME_STATE {
+   public  enum GAME_STATE {
         INIT = 0,
         PLAYING,
         END,
@@ -96,5 +97,9 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) {
             this.state = GAME_STATE.INIT;
         }
+    }
+
+    public GAME_STATE GetState(){
+        return this.state;
     }
 }

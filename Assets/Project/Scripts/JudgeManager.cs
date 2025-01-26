@@ -107,7 +107,7 @@ public class JudgeManager : MonoBehaviour
     private SCORE JudgeChasen() {
         if (this.chasenPositions.Count >= JUDGE_CHASEN_LIST_SIZE) {
             Vector2 variance = this.CalculateVariance(this.chasenPositions);
-            Debug.Log($"Variance: X: {variance.x}, Y: {variance.y}");
+            //Debug.Log($"Variance: X: {variance.x}, Y: {variance.y}");
 
             // Judge!
             if (variance.x > JUDGE_CHASEN_THRESHOLD && variance.y > JUDGE_CHASEN_THRESHOLD) {

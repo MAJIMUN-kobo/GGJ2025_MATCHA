@@ -34,8 +34,12 @@ public class DeviceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        serialPort.ReadTimeout = 1000; // Set timeout to 1 second
-        serialPort.Open();
+        try {
+            serialPort.ReadTimeout = 1000; // Set timeout to 1 second
+            serialPort.Open();
+        } catch (Exception ex) {
+
+        }
 
         // Set the center of the circle to the center of the screen
         center = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -51,8 +55,8 @@ public class DeviceManager : MonoBehaviour
         midBC = CalculateMidPointOnCircle(center, radius, 210f, 330f);
 
         // Log the points for debugging
-        Debug.Log($"A: {pointA}, B: {pointB}, C: {pointC}");
-        Debug.Log($"MidAB: {midAB}, MidAC: {midAC}, MidBC: {midBC}");
+        //Debug.Log($"A: {pointA}, B: {pointB}, C: {pointC}");
+        //Debug.Log($"MidAB: {midAB}, MidAC: {midAC}, MidBC: {midBC}");
     }
 
     // Update is called once per frame

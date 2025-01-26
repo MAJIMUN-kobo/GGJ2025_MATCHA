@@ -9,8 +9,12 @@ public class ChasenController : MonoBehaviour
     [SerializeField] private float _snapSpeed = 10;
 
     private JudgeManager judgeManager;
+
+    private GameManager gameManager;
+
     private float _snapTime = 0;
 
+    private float _delayTime = 0;
 
     public void Init(JudgeManager judge)
     {
@@ -20,6 +24,7 @@ public class ChasenController : MonoBehaviour
     void Start()
     {
         this.judgeManager = GameObject.FindObjectOfType<JudgeManager>();
+        this.gameManager = GameObject.FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -32,36 +37,45 @@ public class ChasenController : MonoBehaviour
     {
         if (this.judgeManager == null) return;
 
+        if (this.gameManager.GetState() == GameManager.GAME_STATE.END) return;
+
         JudgeManager.SCORE score = this.judgeManager.GetScore();
         
+        _delayTime += Time.deltaTime;
 
         if(score == JudgeManager.SCORE.NOT_GOOD || score == JudgeManager.SCORE.READY) 
         {
             _snapTime = 0;
+            _delayTime = 0;
             return;
         }
 
         _snapTime += _snapSpeed * Time.deltaTime;
 
-        switch(score)
+        if(_delayTime >= 0.3f)
         {
-            case JudgeManager.SCORE.NOT_GOOD:
-                break;
+            switch(score)
+            {
+                case JudgeManager.SCORE.NOT_GOOD:
+                    break;
 
-            case JudgeManager.SCORE.GOOD:
-                SoundManager.Instance.PlaySE("Screw");
-                break;
+                case JudgeManager.SCORE.GOOD:
+                    SoundManager.Instance.PlaySE("Screw");
+                    break;
 
-            case JudgeManager.SCORE.GRATE:
-                SoundManager.Instance.PlaySE("Screw");
-                break;
+                case JudgeManager.SCORE.GRATE:
+                    SoundManager.Instance.PlaySE("Screw");
+                    break;
 
-            case JudgeManager.SCORE.AMAZING:
-                SoundManager.Instance.PlaySE("Screw");
-                break;
+                case JudgeManager.SCORE.AMAZING:
+                    SoundManager.Instance.PlaySE("Screw");
+                    break;
 
-            case JudgeManager.SCORE.READY:
-                break;
+                case JudgeManager.SCORE.READY:
+                    break;
+            }
+
+            _delayTime = 0;
         }
 
         Vector3 angles = this.transform.eulerAngles;

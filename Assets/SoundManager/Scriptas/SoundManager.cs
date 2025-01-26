@@ -31,7 +31,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
         catch(System.Exception e)
         { 
-            Debug.LogError($"BGM‚ðÄ¶‚Å‚«‚Ü‚¹‚ñB>>> \n{ e }");
+            Debug.LogError($"BGMï¿½ï¿½ï¿½Äï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B>>> \n{ e }");
         }
     }
 
@@ -49,7 +49,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
         catch(System.Exception e)
         { 
-            Debug.LogError($"SE‚ðÄ¶‚Å‚«‚Ü‚¹‚ñB>>> \n{ e }");
+            //Debug.LogError($"SEï¿½ï¿½ï¿½Äï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B>>> \n{ e }");
         }
     }
 
