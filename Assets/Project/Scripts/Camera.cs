@@ -8,8 +8,8 @@ public class Camera : MonoBehaviour
     void Start()
     {
         // set initial position
-        transform.position = new Vector3(0, 2, 0);
-        transform.rotation = Quaternion.Euler(90, 0, 0);
+        transform.position = new Vector3(0, 1.9f, -0.3f);
+        transform.rotation = Quaternion.Euler(75, 0, 0);
     }
 
     // Update is called once per frame
