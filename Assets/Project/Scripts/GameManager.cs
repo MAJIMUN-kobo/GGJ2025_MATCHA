@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     private UIResultManager uIResultManager;
 
     public SEManager sEManager;
+
+    public GameObject chasenObj;
     
 
     // Start is called before the first frame update
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
         this.effectManager.PlaySakuraEffect();
         this.uIResultManager.HideResult();
         this.state = GAME_STATE.PLAYING;
+        this.chasenObj.SetActive(true);
     }
 
     private void Playing() {
@@ -83,11 +86,12 @@ public class GameManager : MonoBehaviour
         this.uIManager.GetComponent<UIText_Timer>().ShowTimer(remainingTime);
         if (remainingTime <= 0) {
             this.sEManager.PlayCongratulations();
+            this.chasenObj.SetActive(false);
             this.state = GAME_STATE.END;
         }
     }
     
-    
+
 
     private void End() {
         this.effectManager.ClearSakuraEffect();
