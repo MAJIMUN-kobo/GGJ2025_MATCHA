@@ -5,7 +5,11 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class ChasenController : MonoBehaviour
 {
+    [SerializeField] private float _snapAngle = 30;
+    [SerializeField] private float _snapSpeed = 10;
+
     private JudgeManager judgeManager;
+    private float _snapTime = 0;
 
 
     public void Init(JudgeManager judge)
@@ -29,7 +33,15 @@ public class ChasenController : MonoBehaviour
         if (this.judgeManager == null) return;
 
         JudgeManager.SCORE score = this.judgeManager.GetScore();
-        Debug.Log($"SnapScore = { score }");
+        
+
+        if(score == JudgeManager.SCORE.NOT_GOOD || score == JudgeManager.SCORE.READY) 
+        {
+            _snapTime = 0;
+            return;
+        }
+
+        _snapTime += _snapSpeed * Time.deltaTime;
 
         switch(score)
         {
@@ -51,5 +63,11 @@ public class ChasenController : MonoBehaviour
             case JudgeManager.SCORE.READY:
                 break;
         }
+
+        Vector3 angles = this.transform.eulerAngles;
+        angles.x += Mathf.Sin(_snapTime) * _snapAngle;
+        angles.x = Mathf.Clamp(angles.x, -_snapAngle, _snapAngle);
+
+        this.transform.eulerAngles = angles;
     }
 }
