@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SEManager : MonoBehaviour
 {
     private AudioSource resultAudioSource; // AudioSource コンポーネントをアタッチ
     public AudioClip congratulations;   // 再生する音声ファイルをアタッチ
